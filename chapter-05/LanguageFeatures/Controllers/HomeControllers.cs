@@ -16,8 +16,11 @@ namespace LanguageFeatures.Controllers
             //     results.Add(string.Format($"Name: {name}, Price: {price:C2}, Related {relatedName}"));
             // }
             // return View(results);
-
-            return View("Index", new string[] { "Bob", "Joe", "Alice" });
+            Dictionary<string, Product> products = new Dictionary<string, Product>{
+                ["Kayak"] = new Product{Name = "Kayak", Price = 275M},
+                ["Life Jacket"] = new Product{Name = "Life Jacket", Price= 48.9M}
+            };
+            return View("Index", products.Keys);
         }
     }
 }

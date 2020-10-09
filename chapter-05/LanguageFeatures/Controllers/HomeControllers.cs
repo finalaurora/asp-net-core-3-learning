@@ -7,20 +7,16 @@ namespace LanguageFeatures.Controllers
     {
         public ViewResult Index()
         {
-            // List<string> results = new List<string>();
-            // foreach (Product p in Product.GetProducts())
-            // {
-            //     string name = p?.Name ?? "<No Name>";
-            //     decimal? price = p?.Price ?? 0;
-            //     string relatedName = p?.Related?.Name?? "<None>";
-            //     results.Add(string.Format($"Name: {name}, Price: {price:C2}, Related {relatedName}"));
-            // }
-            // return View(results);
-            Dictionary<string, Product> products = new Dictionary<string, Product>{
-                ["Kayak"] = new Product{Name = "Kayak", Price = 275M},
-                ["Life Jacket"] = new Product{Name = "Life Jacket", Price= 48.9M}
-            };
-            return View("Index", products.Keys);
+            object[] data = new object[] { 275M, 29.95M, "apple", "orange", 100, 10 };
+            decimal total = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] is decimal d)
+                {
+                    total += d;
+                }
+            }
+            return View("Index", new string[] { $"Total: {total:C2}" });
         }
     }
 }

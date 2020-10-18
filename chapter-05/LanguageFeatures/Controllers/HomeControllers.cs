@@ -17,10 +17,11 @@ namespace LanguageFeatures.Controllers
             };
 
             decimal cartTotal = cart.TotalPrices();
-            decimal arrayTotal = productArray.FilterByPrice(20).TotalPrices();
+            decimal priceFilterTotal = productArray.FilterByPrice(20).TotalPrices();
+            decimal nameFilterTotal = productArray.FilterByName('S').TotalPrices();
 
-            return View("Index", new string[] { $"Total: {cartTotal:C2}",
-            $"Array Total: {arrayTotal:C2}" });
+            return View("Index", new string[] { $"Name Total: {nameFilterTotal:C2}",
+            $"Price Total: {priceFilterTotal:C2}" });
         }
 
     }

@@ -16,7 +16,7 @@ namespace LanguageFeatures.Controllers
                new Product{ Name = "Corner flag", Price = 34.95M }
             );
 
-            return View(cart.Products.Select(p => p.Name));
+            return View(cart.Names);
         }
     }
 

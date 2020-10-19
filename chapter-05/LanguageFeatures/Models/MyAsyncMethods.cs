@@ -12,7 +12,7 @@ namespace LanguageFeatures.Models
             return httpMessage.Content.Headers.ContentLength;
         }
 
-        public static async Task<IEnumerable<long?>> GetPageLengths(List<string> output, params string[] urls)
+        public static async IAsyncEnumerable<long?> GetPageLengths(List<string> output, params string[] urls)
         {
             List<long?> results = new List<long?>();
             HttpClient client = new HttpClient();
@@ -22,8 +22,8 @@ namespace LanguageFeatures.Models
                 var httpMessage = await client.GetAsync($"http://{url}");
                 results.Add(httpMessage.Content.Headers.ContentLength);
                 output.Add($"Completed request for {url}");
+                yield return httpMessage.Content.Headers.ContentLength;
             }
-            return results;
         }
     }
 }

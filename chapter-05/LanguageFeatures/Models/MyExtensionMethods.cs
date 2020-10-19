@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 namespace LanguageFeatures.Models
 {
     public static class MyExtensionMethods
@@ -13,22 +14,11 @@ namespace LanguageFeatures.Models
             return total;
         }
 
-        public static IEnumerable<Product> FilterByPrice(this IEnumerable<Product> productEnum, decimal minimumPrice)
+        public static IEnumerable<Product> Filter(this IEnumerable<Product> productEnum, Func<Product, bool> selector)
         {
             foreach (Product prod in productEnum)
             {
-                if ((prod?.Price ?? 0) >= minimumPrice)
-                {
-                    yield return prod;
-                }
-            }
-        }
-
-        public static IEnumerable<Product> FilterByName(this IEnumerable<Product> productEnum, char firstLetter)
-        {
-            foreach (Product prod in productEnum)
-            {
-                if(prod?.Name?[0] == firstLetter)
+                if(selector(prod))
                 {
                     yield return prod;
                 }

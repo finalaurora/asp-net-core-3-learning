@@ -1,21 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using LanguageFeatures.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 namespace LanguageFeatures.Controllers
 {
     public class HomeController : Controller
     {
         public ViewResult Index()
         {
-            List<string> results = new List<string>();
-            foreach (Product p in Product.GetProducts())
-            {
-                string name = p?.Name ?? "<No Name>";
-                decimal? price = p?.Price ?? 0;
-                string relatedName = p?.Related?.Name?? "<None>";
-                results.Add(string.Format($"Name: {name}, Price: {price:C2}, Related {relatedName}"));
-            }
-            return View(results);
+            var products = new[] {
+                new { Name = "Kayak", Price = 275M },
+                new { Name = "Lifejacket", Price = 48.95M },
+                new { Name = "Soccer ball", Price = 19.50M },
+                new { Name = "Corner flag", Price = 34.95M }
+                };
+            return View(products.Select(p => $"{nameof(p.Name)}: {p.Name}, {nameof(p.Price)}: {p.Price}"));
         }
     }
+
+
 }
